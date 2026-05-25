@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcelo Design X | 3D Animations</title>
+    <meta name="description" content="Premium 3D Product Animations, Motion Design & Futuristic Visuals">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        :root {
+            --neon: #00ff9d;
+            --neon2: #00ccff;
+            --dark: #0a0a0a;
+            --gray: #111111;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--dark);
+            color: #eee;
+            overflow-x: hidden;
+        }
+
+        /* Neon Particle Background */
+        #particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        header {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--neon);
+            text-decoration: none;
+            letter-spacing: -2px;
+        }
+        nav a {
+            color: #ddd;
+            margin: 0 1.3rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        nav a:hover { color: var(--neon); }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 4.5rem;
+            background: linear-gradient(90deg, var(--neon), var(--neon2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.6rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #ccc;
+        }
+        .cta-btn {
+            background: var(--neon);
+            color: #000;
+            padding: 18px 55px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .cta-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--neon);
+        }
+
+        section { padding: 100px 5%; position: relative; }
+        .section-title {
+            font-size: 3.2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--neon);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+        .card {
+            background: var(--gray);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 0 40px rgba(0, 255, 157, 0.3);
+        }
+        .card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+        .card .content { padding: 1.5rem; }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .price-card {
+            background: var(--gray);
+            border: 2px solid #222;
+            border-radius: 20px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s;
+        }
+        .price-card.popular {
+            border-color: var(--neon);
+            transform: scale(1.05);
+        }
+        .price-card h3 { color: var(--neon); margin-bottom: 1rem; }
+
+        /* Form & Modal */
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--gray);
+            padding: 3rem;
+            border-radius: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 16px;
+            margin: 12px 0;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: white;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #111;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            border: 2px solid var(--neon);
+        }
+        footer {
+            background: #050505;
+            padding: 4rem 5% 2rem;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particle Background -->
+    <canvas id="particles"></canvas>
+
+    <!-- HEADER -->
+    <header>
+        <a href="#" class="logo">MARCELO DESIGN X</a>
+        <nav>
+            <a href="#work">Portfolio</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div>
+            <h1>3D ANIMATIONS<br>THAT CAPTIVATE</h1>
+            <p>Premium product visuals, futuristic motion design &amp; cinematic 3D experiences.</p>
+            <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="cta-btn">START YOUR PROJECT</button>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="work">
+        <h2 class="section-title">Featured Work</h2>
+        <div class="portfolio-grid">
+            <div class="card">
+                <img src="https://picsum.photos/id/201/800/500" alt="NVIDIA Glasses">
+                <div class="content">
+                    <h3>NVIDIA Futuristic Eyewear</h3>
+                    <p>Dynamic product animation with real-time lighting</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/id/180/800/500" alt="Tech Product">
+                <div class="content">
+                    <h3>AI Hardware Launch</h3>
+                    <p>Cinematic reveal animation</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/id/237/800/500" alt="Abstract">
+                <div class="content">
+                    <h3>Neon Motion Reel</h3>
+                    <p>Abstract 3D + VFX showcase</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" style="background:#0f0f0f;">
+        <h2 class="section-title">Pricing Packages</h2>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3>Starter</h3>
+                <h2 style="font-size:2.5rem; margin:1rem 0;">$1,200</h2>
+                <p>15-second product animation<br>Basic lighting &amp; rendering</p>
+                <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="margin-top:2rem; padding:12px 30px; background:#222; color:white; border:none; border-radius:50px;">Choose</button>
+            </div>
+            <div class="price-card popular">
+                <h3>Professional ★</h3>
+                <h2 style="font-size:2.5rem; margin:1rem 0; color:var(--neon);">$3,500</h2>
+                <p>30-45 second cinematic animation<br>Custom modeling, complex lighting, revisions</p>
+                <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="margin-top:2rem; padding:12px 30px; background:var(--neon); color:black; border:none; border-radius:50px; font-weight:700;">Most Popular</button>
+            </div>
+            <div class="price-card">
+                <h3>Premium</h3>
+                <h2 style="font-size:2.5rem; margin:1rem 0;">$8,000+</h2>
+                <p>Full campaign, multiple angles, 3D modeling from scratch, VFX</p>
+                <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="margin-top:2rem; padding:12px 30px; background:#222; color:white; border:none; border-radius:50px;">Contact for Quote</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM -->
+    <section id="contact" style="background:var(--gray);">
+        <div class="form-container">
+            <h2 class="section-title">Start Your Project</h2>
+            <p style="text-align:center; margin-bottom:2rem;">Tell me your vision — I’ll reply with a custom quote within 24 hours.</p>
+            
+            <form id="designForm" action="https://formspree.io/f/xdajlbqa" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="text" name="project_type" placeholder="Project Type (Product Animation, Logo, Explainer, etc.)">
+                <textarea name="message" rows="6" placeholder="Describe your project, timeline, budget range, and reference links..." required></textarea>
+                
+                <input type="hidden" name="_subject" value="New 3D Animation Project - Marcelo Design X">
+                
+                <button type="submit" class="cta-btn" style="width:100%; margin-top:1rem;">SEND PROJECT BRIEF →</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- SUCCESS MODAL -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <h2 style="color:var(--neon);">✅ Project Received!</h2>
+            <p>Thank you! I’ve received your brief and will get back to you within 24 hours.</p>
+            <button onclick="closeModal()" style="margin-top:2rem; padding:12px 40px; background:var(--neon); color:black; border:none; border-radius:50px; font-weight:700;">CLOSE</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Marcelo Design X • Premium 3D Animations &amp; Motion Design</p>
+        <p style="margin-top:1rem;">
+            <a href="#" style="color:#aaa; margin:0 15px;">Instagram</a>
+            <a href="#" style="color:#aaa; margin:0 15px;">Behance</a>
+            <a href="#" style="color:#aaa; margin:0 15px;">YouTube</a>
+        </p>
+    </footer>
+
+    <script>
+        // Simple Particle Background
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = '#00ff9d';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 80; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of particles) {
+                p.update();
+                p.draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        initParticles();
+        animateParticles();
+
+        // Form Handling
+        const form = document.getElementById('designForm');
+        const modal = document.getElementById('successModal');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In real use with Formspree, it will submit then show modal
+            setTimeout(() => {
+                modal.style.display = 'flex';
+                form.reset();
+            }, 600);
+        });
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+              </html>
